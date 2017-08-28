@@ -1,0 +1,48 @@
+body {
+    padding-top: 0px;
+}
+.welcome {
+	margin: auto;
+    width: 50%;
+    padding: 10px;
+	text-align: center;
+}
+.panel-body {
+	margin: auto;
+    width: 50%;
+    padding: 10px;
+	text-align: center;
+}
+.btn-1 {
+	background-color: #59B2E0;
+	outline: none;
+	color: #fff;
+	font-size: 14px;
+	height: auto;
+	font-weight: normal;
+	padding: 14px 0;
+	text-transform: uppercase;
+	border-color: #59B2E6;
+}
+.btn-1:hover,
+.btn-1:focus {
+	color: #fff;
+	background-color: #53A3CD;
+	border-color: #53A3CD;
+}
+.table1 {
+	padding: 15px;
+}
+table#t01 {
+    table-layout: fixed;
+    width: 100%;
+}
+.table2 {
+	padding: 15px;
+}
+table#t02 {
+    border: 1px solid black;
+    table-layout: fixed;
+    width: 100%;
+	padding-top: 5px;
+}
