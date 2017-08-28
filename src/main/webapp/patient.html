@@ -12,38 +12,129 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="./css/patient.css">
+<link rel="stylesheet" href="css/patient.css">
+<script src="js/index.js"></script>
+
 </head>
 
 <body>
 
 <div class="welcome">
-	<h1>InterClinica</h1>
-	<p>Welcome patient!</p>
+	<h1>Welcome to InterClinica!</h1>
+	<h3>Patient Name: Aleksandros Apollon Rodopoulos</h3>
 </div>
 
-<div class="panel-body">
-	<h2>Your next doctor appointment is on:</h2>
-	<h3>You don't have any appointments booked.</h3>
-	
-	<div class="table1">
-		<table id="t01">
-		  <tr>
-			<td><form><input type="submit" name="book-appointment" id="book-appointment" class="form-control btn btn-1" value="Book New Appointment" style="width:95%"></form></td>
-			<td><form><input type="submit" name="show-history" id="show-history" class="form-control btn btn-1" value="Show History" style="width:95%"></form></td>
-		  </tr>
-		</table>
-		<table id="t02">
+<div class="container">
+    	<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="panel panel-login">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-6">
+								<a href="#" class="active" id="login-form-link">Your Appointments</a>
+							</div>
+							<div class="col-xs-6">
+								<a href="#" id="register-form-link">Book a New Appointment</a>
+							</div>
+						</div>
+						<hr>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="appointments_history" id="login-form" style="display: block;">
+									<table>
+										<tr>
+											<th>Appointment Date and Time</th>
+											<th>Assigned Doctor</th>
+											<th>Appointment Status</th>
+										</tr>
+									  <tr>
+										<td>Appointment 06</br>28/08/2017, 10:30 - 12:30</td>
+										<td>Brahimaj</br>Ladies Doctor</td>
+										<td><input type="submit" name="appointment_cancel" id="appointment_cancel" class="" value="Cancel"></td>
+									  </tr>
+									  <tr>
+										<td>Appointment 05</br>12/08/2017, 09:15 - 10:15</td>
+										<td>Brahimaj</br>Ladies Doctor</td>
+										<td>Completed</td>
+									  </tr>
+									  <tr>
+										<td>Appointment 04</br>28/08/2017, 10:30 - 12:30</td>
+										<td>Gkentzoglanis</br>Psycological Doctor</td>
+										<td>Completed</td>
+									  </tr>
+									  <tr>
+										<td>Appointment 03</br>28/08/2017, 10:30 - 12:30</td>
+										<td>Gkentzoglanis</br>Psycological Doctor</td>
+										<td>Completed</td>
+									  </tr>
+									  <tr>
+										<td>Appointment 02</br>28/08/2017, 10:30 - 12:30</td>
+										<td>Gkentzoglanis</br>Psycological Doctor</td>
+										<td>Cancelled</td>
+									  </tr>
+									  <tr>
+										<td>Appointment 01</br>28/08/2017, 10:30 - 12:30</td>
+										<td>Brahimaj</br>Ladies Doctor</td>
+										<td>Completed</td>
+									  </tr>
+									</table>
+								</div>
+								<div class="appointments_new" id="register-form" style="display: none;">
+									<h4>What kind of doctor do you seek?</h4>
+									<select>
+									  <option value="default">-- Select a doctor specialty --</option>
+									  <option value="ladies">Ladies Doctor</option>
+									  <option value="psycologist">Psycologist</option>
+									  <option value="general">General</option>
+									</select>
+									<br><br>
+									<table>
+										<tr>
+											<th>Available Date and Time</th>
+											<th>Assigned Doctor</th>
+											<th>Book a Time Slot</th>
+										</tr>
+									  <tr>
+										<td>28/08/2017<br>10:30 - 12:30</td>
+										<td>Brahimaj</td>
+										<td><input type="submit" name="appointment_book" id="appointment_book" class="" value="Book This Time Slot"></td>
+									  </tr>
+									  <tr>
+										<td>12/08/2017<br>09:15 - 10:15</td>
+										<td>Brahimaj</td>
+										<td><input type="submit" name="appointment_book" id="appointment_book" class="" value="Book This Time Slot"></td>
+									  </tr>
+									  <tr>
+										<td>28/08/2017<br>10:30 - 12:30</td>
+										<td>Gkentzoglanis</td>
+										<td><input type="submit" name="appointment_book" id="appointment_book" class="" value="Book This Time Slot"></td>
+									  </tr>
+									  <tr>
+										<td>28/08/2017<br>10:30 - 12:30</td>
+										<td>Gkentzoglanis</td>
+										<td><input type="submit" name="appointment_book" id="appointment_book" class="" value="Book This Time Slot"></td>
+									  </tr>
+									  <tr>
+										<td>28/08/2017<br>10:30 - 12:30</td>
+										<td>Gkentzoglanis</td>
+										<td><input type="submit" name="appointment_book" id="appointment_book" class="" value="Book This Time Slot"></td>
+									  </tr>
+									  <tr>
+										<td>28/08/2017<br>10:30 - 12:30</td>
+										<td>Brahimaj</td>
+										<td><input type="submit" name="appointment_book" id="appointment_book" class="" value="Book This Time Slot"></td>
+									  </tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	
-	<div class="table2">
-		<table id="t02">
-		  <tr>
-			<td>show here</td>
-		  </tr>
-		</table>
-	</div>
-</div>
 
 </body>
 </html>
