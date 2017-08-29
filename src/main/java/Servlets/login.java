@@ -7,6 +7,7 @@ package Servlets;
 
 import Models.Database;
 import Models.Validator;
+import com.mysql.cj.api.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -25,9 +27,11 @@ public class login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();  
+            session = request.getSession(true);
             String username = request.getParameter("username");
             String pwd = request.getParameter("password");
-            if(Validator.validateUser(username, pwd))
+            if(Validator.validateUser(username, pwd, session))
             {
                 String type = Database.getUserType(username);
                 if(type.equals("patient"))

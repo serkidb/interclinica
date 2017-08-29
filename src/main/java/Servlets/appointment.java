@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 
 
@@ -34,6 +35,8 @@ public class appointment extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
+            System.out.println(session.getAttribute("userId"));
             request.getParameter("type");
            String id = request.getParameter("id");
             

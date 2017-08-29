@@ -53,7 +53,7 @@ public class register extends HttpServlet {
             }else{
                 
                 Database.registerUser(firstName, lastName, username, email, address, phone_number, password);
-                RequestDispatcher rs = request.getRequestDispatcher("patient.html");
+                RequestDispatcher rs = request.getRequestDispatcher("index.html");
                 rs.include(request, response);
                 
             }

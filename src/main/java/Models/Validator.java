@@ -6,6 +6,7 @@
 package Models;
 
 import java.sql.*;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -13,7 +14,7 @@ import java.sql.*;
  */
 public class Validator {
     
-    public static boolean validateUser(String username, String pass)
+    public static boolean validateUser(String username, String pass,HttpSession session)
     {
         boolean st =false;
       try{
@@ -24,7 +25,14 @@ public class Validator {
          ps.setString(1, username);
          ps.setString(2, pass);
          ResultSet rs =ps.executeQuery();
-         if(rs.next()){st = true;}
+         if(rs.next())
+         {
+            
+            session.setAttribute("userId", rs.getString("u_id"));
+             st = true;
+              
+             
+         }
          
         
       }catch(Exception e)
