@@ -53,6 +53,9 @@ public class register extends HttpServlet {
             }else{
                 
                 Database.registerUser(firstName, lastName, username, email, address, phone_number, password);
+                out.println("Username or Password incorrect");
+                RequestDispatcher rs = request.getRequestDispatcher("patient.html");
+                rs.include(request, response);
                 
             }
            

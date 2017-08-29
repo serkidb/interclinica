@@ -5,11 +5,11 @@
  */
 package Servlets;
 
-import Models.Database;
-import Models.Validator;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,43 +19,37 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Serkid
  */
-public class login extends HttpServlet {
+public class deleteapp extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String username = request.getParameter("username");
-            String pwd = request.getParameter("password");
-            if(Validator.validateUser(username, pwd))
-            {
-                String type = Database.getUserType(username);
-                if(type.equals("patient"))
-                 {
-                     out.println("Welcome Patient");
-                RequestDispatcher rs = request.getRequestDispatcher("/patient.html");
-                rs.include(request, response);
-                 }else if(type.equals("doctor"))
-                 {
-                     out.println("Welcome Doctor");
-                RequestDispatcher rs = request.getRequestDispatcher("/doctor.html");
-                rs.include(request, response);
-                 }else if(type.equals("admin"))
-                 {
-                out.println("Welcome Admin");
-                RequestDispatcher rs = request.getRequestDispatcher("/admin.html");
-                rs.include(request, response);
-                      
-                 }
-                 
-            }else{
-                
-                out.println("Username or Password incorrect");
-                RequestDispatcher rs = request.getRequestDispatcher("index.html");
-                rs.include(request, response);
-                
-            }
-            
+             try{
+                String appId = request.getParameter("app_id");
+                String userId = request.getParameter("user_id");
+              
+         Class.forName("com.mysql.cj.jdbc.Driver");
+                 System.out.println("RUn");
+         Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica","root","");
+         PreparedStatement ps =con.prepareStatement("DELETE FROM appointments WHERE app_id =? AND patient_id = ?");
+         ps.setString(1, appId);
+         ps.setString(2, userId);
+         ps.executeUpdate();
+               
+      }catch(Exception e)
+      {
+          e.printStackTrace();
+      }
         }
     }
 

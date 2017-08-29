@@ -6,6 +6,8 @@
 package Models;
 
 import java.sql.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Database {
     
@@ -61,6 +63,44 @@ public class Database {
     }
     
     
+    
+    
+        public static JSONArray getAppointments(String id,String type)
+    {
+       JSONArray myArray =new JSONArray();
+         try{
+         Class.forName("com.mysql.cj.jdbc.Driver");
+         Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica","root","");
+         PreparedStatement ps =con.prepareStatement
+                         ("SELECT * FROM appointments INNER JOIN users ON appointments.doctor_id = users.u_id WHERE appointments.patient_id = ?");
+         ps.setString(1, id);
+         ResultSet rs =ps.executeQuery();
+            while (rs.next()) {
+                
+                
+                
+                JSONObject myObj = new JSONObject();
+                myObj.put("app_id", rs.getString("app_id"));
+                myObj.put("doctor_id", rs.getString("app_id"));
+                myObj.put("date_time", rs.getString("date_time"));
+                myObj.put("first_name", rs.getString("first_name"));
+                myObj.put("last_name", rs.getString("last_name"));
+                myObj.put("specialty", rs.getString("specialty"));
+                
+                //myObj.put("status", rs.getString("status"));
+                
+                myArray.put(myObj);
+            }
+        
+      
+      }catch(Exception e)
+      {
+          e.printStackTrace();
+      }
+        
+        
+        return myArray;
+    }
     
     
 }

@@ -6,56 +6,42 @@
 package Servlets;
 
 import Models.Database;
-import Models.Validator;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
+
 
 /**
  *
  * @author Serkid
  */
-public class login extends HttpServlet {
+public class appointment extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            String username = request.getParameter("username");
-            String pwd = request.getParameter("password");
-            if(Validator.validateUser(username, pwd))
-            {
-                String type = Database.getUserType(username);
-                if(type.equals("patient"))
-                 {
-                     out.println("Welcome Patient");
-                RequestDispatcher rs = request.getRequestDispatcher("/patient.html");
-                rs.include(request, response);
-                 }else if(type.equals("doctor"))
-                 {
-                     out.println("Welcome Doctor");
-                RequestDispatcher rs = request.getRequestDispatcher("/doctor.html");
-                rs.include(request, response);
-                 }else if(type.equals("admin"))
-                 {
-                out.println("Welcome Admin");
-                RequestDispatcher rs = request.getRequestDispatcher("/admin.html");
-                rs.include(request, response);
-                      
-                 }
-                 
-            }else{
-                
-                out.println("Username or Password incorrect");
-                RequestDispatcher rs = request.getRequestDispatcher("index.html");
-                rs.include(request, response);
-                
-            }
+            request.getParameter("type");
+           String id = request.getParameter("id");
             
+            out.print(Database.getAppointments(id,""));
+            out.flush();
+            
+            
+         
         }
     }
 
