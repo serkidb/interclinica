@@ -83,6 +83,7 @@ public class Database {
                 myObj.put("app_id", rs.getString("app_id"));
                 myObj.put("doctor_id", rs.getString("app_id"));
                 myObj.put("date_time", rs.getString("date_time"));
+                myObj.put("app_status",rs.getString("app_status"));
                 myObj.put("first_name", rs.getString("first_name"));
                 myObj.put("last_name", rs.getString("last_name"));
                 myObj.put("specialty", rs.getString("specialty"));
