@@ -35,14 +35,14 @@ public class Database {
         return type;
     }
     
-    public static void registerUser(String firstName, String lastName, String username, String email, String address, String phoneNumber, String password)
+    public static void registerUser(String firstName, String lastName, String username, String email, String address, String phoneNumber, String password, String type,String specialty)
     {
-        String type = new String();
+        
         
          try{
          Class.forName("com.mysql.cj.jdbc.Driver");
          Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica","root","");
-         PreparedStatement ps =con.prepareStatement("INSERT INTO users(username,pwd,email,first_name,last_name,address,phone_number,type,specialty,created_at) VALUES (?,?,?,?,?,?,?,?,?,CURRENT_DATE)");
+         PreparedStatement ps =con.prepareStatement("INSERT INTO users(username,pwd,email,first_name,last_name,address,phone_number,type,specialty,created_at) VALUES (?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)");
          ps.setString(1, username);
          ps.setString(2, password);  
          ps.setString(3, email);  
@@ -51,7 +51,7 @@ public class Database {
          ps.setString(6, address);  
          ps.setString(7, phoneNumber);  
          ps.setString(8, type);  
-         ps.setString(9, "");
+         ps.setString(9, specialty);
          ps.executeUpdate();
                
       }catch(Exception e)

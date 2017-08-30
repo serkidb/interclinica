@@ -34,7 +34,7 @@ public class register extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+            String specialty = new String();
             String firstName = request.getParameter("first_name");
             String lastName = request.getParameter("last_name");
             String username = request.getParameter("username");
@@ -42,6 +42,7 @@ public class register extends HttpServlet {
             String address = request.getParameter("address");
             String phone_number = request.getParameter("phone_number");
             String password = request.getParameter("password");
+            specialty = request.getParameter("specialty");
             
             
             if(Validator.checkIfAlreadyUser(username))
@@ -50,12 +51,19 @@ public class register extends HttpServlet {
                 RequestDispatcher rs = request.getRequestDispatcher("index.html");
                 rs.include(request, response);
                 
-            }else{
+            }else if(specialty == null){
                 
-                Database.registerUser(firstName, lastName, username, email, address, phone_number, password);
+                System.out.println("Register User");
+                
+                Database.registerUser(firstName, lastName, username, email, address, phone_number, password,"patient","");
                 RequestDispatcher rs = request.getRequestDispatcher("index.html");
                 rs.include(request, response);
                 
+            }else if(!specialty.isEmpty()){
+                System.out.println("Register Doctor");
+                Database.registerUser(firstName, lastName, username, email, address, phone_number, password,"doctor",specialty);
+                RequestDispatcher rs = request.getRequestDispatcher("admin.html");
+                rs.include(request, response);
             }
            
         }
