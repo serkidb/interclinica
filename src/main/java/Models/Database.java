@@ -72,7 +72,7 @@ public class Database {
          Class.forName("com.mysql.cj.jdbc.Driver");
          Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica","root","");
          PreparedStatement ps =con.prepareStatement
-                         ("SELECT * FROM appointments INNER JOIN users ON appointments.doctor_id = users.u_id WHERE appointments.patient_id = ?");
+                         ("SELECT * FROM appointments INNER JOIN users ON appointments.doctor_id = users.u_id WHERE appointments.patient_id = ? ORDER BY appointments.date_time DESC");
          ps.setString(1, id);
          ResultSet rs =ps.executeQuery();
             while (rs.next()) {
