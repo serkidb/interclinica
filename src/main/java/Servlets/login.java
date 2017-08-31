@@ -27,39 +27,32 @@ public class login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();  
+            HttpSession session = request.getSession();
             session = request.getSession(true);
             String username = request.getParameter("username");
             String pwd = request.getParameter("password");
-            if(Validator.validateUser(username, pwd, session))
-            {
+            if (Validator.validateUser(username, pwd, session)) {
                 String type = Database.getUserType(username);
-                if(type.equals("patient"))
-                 {
-                     out.println("Welcome Patient");
-                RequestDispatcher rs = request.getRequestDispatcher("/patient.html");
-                rs.include(request, response);
-                 }else if(type.equals("doctor"))
-                 {
-                     out.println("Welcome Doctor");
-                RequestDispatcher rs = request.getRequestDispatcher("/doctor.html");
-                rs.include(request, response);
-                 }else if(type.equals("admin"))
-                 {
-                out.println("Welcome Admin");
-                RequestDispatcher rs = request.getRequestDispatcher("/admin.html");
-                rs.include(request, response);
-                      
-                 }
-                 
-            }else{
-                
+                if (type.equals("patient")) {
+                    RequestDispatcher rs = request.getRequestDispatcher("/patient.html");
+                    rs.include(request, response);
+                } else if (type.equals("doctor")) {
+                    RequestDispatcher rs = request.getRequestDispatcher("/doctor.html");
+                    rs.include(request, response);
+                } else if (type.equals("admin")) {
+                    RequestDispatcher rs = request.getRequestDispatcher("/admin.html");
+                    rs.include(request, response);
+
+                }
+
+            } else {
+
                 out.println("Username or Password incorrect");
                 RequestDispatcher rs = request.getRequestDispatcher("index.html");
                 rs.include(request, response);
-                
+
             }
-            
+
         }
     }
 

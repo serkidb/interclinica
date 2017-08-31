@@ -1,4 +1,17 @@
 // A $( document ).ready() block.
+// Print welcome message for admin.
+$(document).ready(function () {
+    $.ajax({
+        url: "info",
+        cache: false,
+        success: function (data) {
+            console.log(data);
+            $('#welcome_person').append('<h3>Doctor: ' + data[0]['first_name'] + ' ' + data[0]['last_name'] + '</h3><br><h4> Specialty: ' + data[0]['specialty']);
+        }
+    });
+});
+
+// A $( document ).ready() block.
 $(document).ready(function () {
     $.ajax({
         url: "appointment",
