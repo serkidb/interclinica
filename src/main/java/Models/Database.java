@@ -133,7 +133,7 @@ public class Database {
          Class.forName("com.mysql.cj.jdbc.Driver");
          Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica","root","");
          PreparedStatement ps =con.prepareStatement
-                         ("SELECT * FROM user WHERE u_id = 1");
+                         ("SELECT * FROM users WHERE u_id = ?");
          ps.setString(1, id);
          ResultSet rs =ps.executeQuery();
             while (rs.next()) {
