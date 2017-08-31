@@ -53,9 +53,24 @@ $(document).ready(function () {
                 $('#doctors_registered tbody').append('<tr>');
                 $('#doctors_registered tbody').append('<td>Doctor ID: ' + row['u_id'] + '<br>' + row['first_name'] + ' ' + row['last_name'] + '</td>');
                 $('#doctors_registered tbody').append('<td>' + row['specialty'] + '</td>');
-                $('#doctors_registered tbody').append('<td><button class="doctor_delete" type="button" data-doctor="'+ row['u_id'] +'">Deregister</button></td>');
+                $('#doctors_registered tbody').append('<td><button class="doctor_delete" type="button" data-doctor="' + row['u_id'] + '">Deregister</button></td>');
                 $('#doctors_registered tbody').append('</tr>');
             });
         }
     });
+
+
+//Delete Doctors
+    $(document).on('click', '.doctor_delete', function () {        
+         $.ajax({
+        url: "deletedoctor",
+        data:{doctor_id:$(this).data("doctor")},
+        cache: false,
+        success: function (data) {
+            location.reload();
+          
+        }
+    });
+    });
+
 });
