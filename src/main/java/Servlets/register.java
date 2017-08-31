@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,6 +35,7 @@ public class register extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
             String specialty = new String();
             String firstName = request.getParameter("first_name");
             String lastName = request.getParameter("last_name");
@@ -56,8 +58,17 @@ public class register extends HttpServlet {
                 System.out.println("Register User");
                 
                 Database.registerUser(firstName, lastName, username, email, address, phone_number, password,"patient","");
-                RequestDispatcher rs = request.getRequestDispatcher("index.html");
-                rs.include(request, response);
+  
+                if(session.getAttribute("userId").toString()!=null)
+                {
+                    RequestDispatcher rs = request.getRequestDispatcher("admin.html");
+                    rs.include(request, response);
+                }else
+                {
+                   RequestDispatcher rs = request.getRequestDispatcher("index.html");
+                    rs.include(request, response); 
+                }
+                
                 
             }else if(!specialty.isEmpty()){
                 System.out.println("Register Doctor");

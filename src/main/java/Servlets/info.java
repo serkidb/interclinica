@@ -13,14 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.json.JSONObject;
-
 
 /**
  *
  * @author Serkid
  */
-public class appointment extends HttpServlet {
+public class info extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,14 +33,11 @@ public class appointment extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
             String id = session.getAttribute("userId").toString();
             request.getParameter("type");
-            out.print(Database.getAppointments(id));
+            out.print(Database.getInfo(id));
             out.flush();
-            
-            
-         
         }
     }
 

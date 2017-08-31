@@ -12,37 +12,24 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.json.JSONObject;
-
 
 /**
  *
  * @author Serkid
  */
-public class appointment extends HttpServlet {
+public class deletedoctor extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json");
+        response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();
-            String id = session.getAttribute("userId").toString();
-            request.getParameter("type");
-            out.print(Database.getAppointments(id));
-            out.flush();
-            
-            
-         
+           String id = request.getParameter("doctor_id");
+           Database.deleteDoctor(id);
+           
         }
     }
 

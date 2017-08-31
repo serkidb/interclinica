@@ -36,7 +36,7 @@ $(document).ready(function () {
         cache: false,
         success: function (data) {
             console.log(data);
-            $('#welcome_person').append('<h3>Administrator: ' + ['first_name'] + ' ' + ['last_name'] + '</h3>');
+            //$('#welcome_person').append('<h3>Administrator: ' + ['first_name'] + ' ' + ['last_name'] + '</h3>');
         }
     });
 });
