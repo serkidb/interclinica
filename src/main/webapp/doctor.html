@@ -1,105 +1,75 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>InterClinica</title>
+    <head>
+        <title>InterClinica</title>
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="css/patient.css">
-<script src="js/index.js"></script>
+        <link rel="stylesheet" href="css/patient.css">
+        <script src="js/index.js"></script>
 
-</head>
+    </head>
 
-<body>
+    <body>
 
-<div class="welcome">
-	<h1>Welcome to InterClinica!</h1>
-	<h3>Doctor Name: Serkid Brahimaj</h3>
-	<h4> Specialty: Ladies Doctor</h4>
-        <button type="button">Sign out</button>
-</div>
+        <div class="welcome">
+            <h1>Welcome to InterClinica!</h1>
+            <h3>Doctor Name: Serkid Brahimaj</h3>
+            <h4> Specialty: Ladies Doctor</h4>
+            <button type="button">Sign out</button>
+        </div>
 
-<div class="container">
-    	<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<div class="panel panel-login">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-xs-6">
-								<a href="#" class="active" id="login-form-link">Your Appointments</a>
-							</div>
-							<div class="col-xs-6">
-								<a href="#" id="register-form-link">Availability</a>
-							</div>
-						</div>
-						<hr>
-					</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="appointments_history" id="login-form" style="display: block;">
-									<table>
-										<tr>
-											<th>Appointment Date and Time</th>
-											<th>Patient</th>
-											<th>Appointment Status</th>
-										</tr>
-									  <tr>
-										<td>Appointment 06</br>28/08/2017, 10:30 - 12:30</td>
-										<td>Aleksandros Apollon Rodopoulos</td>
-										<td><input type="submit" name="appointment_cancel" id="appointment_cancel" class="" value="Cancel"></td>
-									  </tr>
-									  <tr>
-										<td>Appointment 05</br>12/08/2017, 09:15 - 10:15</td>
-										<td>Aleksandros Apollon Rodopoulos</td>
-										<td>Completed</td>
-									  </tr>
-									  <tr>
-										<td>Appointment 04</br>28/08/2017, 10:30 - 12:30</td>
-										<td>Aleksandros Apollon Rodopoulos</td>
-										<td>Completed</td>
-									  </tr>
-									  <tr>
-										<td>Appointment 03</br>28/08/2017, 10:30 - 12:30</td>
-										<td>Aleksandros Apollon Rodopoulos</td>
-										<td>Completed</td>
-									  </tr>
-									  <tr>
-										<td>Appointment 02</br>28/08/2017, 10:30 - 12:30</td>
-										<td>Aleksandros Apollon Rodopoulos</td>
-										<td>Cancelled</td>
-									  </tr>
-									  <tr>
-										<td>Appointment 01</br>28/08/2017, 10:30 - 12:30</td>
-										<td>Aleksandros Apollon Rodopoulos</td>
-										<td>Completed</td>
-									  </tr>
-									</table>
-								</div>
-								<div class="appointments_dates" id="register-form" style="display: none;">
-									<h4>This month I am available:</h4>
-									<form action="">
-									  <input type="radio" name="gender" value="male"> Morning, Working Days (Monday to Friday, 9AM to 5PM) <br>
-									  <input type="radio" name="gender" value="male"> Evening, Working Days (Monday to Friday, 5PM to 9PM) <br>
-									  <input type="radio" name="gender" value="female"> Morning, 6 Days per Week (Monday to Saturday, 9AM to 5PM)<br>
-									  <input type="radio" name="gender" value="female"> Evening, 6 Days per Week (Monday to Saturday, 5PM to 9PM)<br>
-									  <input type="radio" name="gender" value="other"> All Days, 24/7
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="panel panel-login">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <a href="#" class="active" id="login-form-link">Your Appointments</a>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a href="#" id="register-form-link">Availability</a>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="appointments_history" id="login-form" style="display: block;">
+                                        <table id="appointments_table">
+                                            <tr>
+                                                <th>Appointment Date and Time</th>
+                                                <th>Patient</th>
+                                                <th>Appointment Status</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="appointments_dates" id="register-form" style="display: none;">
+                                        <h4>This month I am available:</h4>
+                                        <form action="">
+                                            <input type="radio" name="gender" value="male"> Morning, Working Days (Monday to Friday, 9AM to 5PM) <br>
+                                            <input type="radio" name="gender" value="male"> Evening, Working Days (Monday to Friday, 5PM to 9PM) <br>
+                                            <input type="radio" name="gender" value="female"> Morning, 6 Days per Week (Monday to Saturday, 9AM to 5PM)<br>
+                                            <input type="radio" name="gender" value="female"> Evening, 6 Days per Week (Monday to Saturday, 5PM to 9PM)<br>
+                                            <input type="radio" name="gender" value="other"> All Days, 24/7
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</body>
+    </body>
 </html>
