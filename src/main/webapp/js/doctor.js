@@ -1,5 +1,5 @@
 // A $( document ).ready() block.
-// Print welcome message for admin.
+// Print welcome message for doctor.
 $(document).ready(function () {
     $.ajax({
         url: "info",

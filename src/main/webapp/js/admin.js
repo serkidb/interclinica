@@ -53,7 +53,7 @@ $(document).ready(function () {
                 $('#doctors_registered tbody').append('<tr>');
                 $('#doctors_registered tbody').append('<td>Doctor ID: ' + row['u_id'] + '<br>' + row['first_name'] + ' ' + row['last_name'] + '</td>');
                 $('#doctors_registered tbody').append('<td>' + row['specialty'] + '</td>');
-                $('#doctors_registered tbody').append('<td><button id="doctors_delete" type="button">Deregister</button></td>');
+                $('#doctors_registered tbody').append('<td><button class="doctor_delete" type="button" data-doctor="'+ row['u_id'] +'">Deregister</button></td>');
                 $('#doctors_registered tbody').append('</tr>');
             });
         }
