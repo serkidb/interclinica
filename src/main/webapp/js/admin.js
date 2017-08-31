@@ -1,5 +1,4 @@
 $(function () {
-
     $('#login-form-link').click(function (e) {
         $("#login-form").delay(100).fadeIn(100);
         $("#register-form").fadeOut(100);
@@ -30,6 +29,20 @@ $(function () {
 });
 
 // A $( document ).ready() block.
+// Print welcome message for admin.
+$(document).ready(function () {
+    $.ajax({
+        url: "info",
+        cache: false,
+        success: function (data) {
+            console.log(data);
+            $('#welcome_person').append('<h3>Administrator: ' + ['first_name'] + ' ' + ['last_name'] + '</h3>');
+        }
+    });
+});
+
+// A $( document ).ready() block.
+// Print registered doctors that exist in the database.
 $(document).ready(function () {
     $.ajax({
         url: "doctors",
@@ -43,18 +56,6 @@ $(document).ready(function () {
                 $('#doctors_registered tbody').append('<td><button id="doctors_delete" type="button">Deregister</button></td>');
                 $('#doctors_registered tbody').append('</tr>');
             });
-        }
-    });
-});
-
-// A $( document ).ready() block.
-$(document).ready(function () {
-    $.ajax({
-        url: "info",
-        cache: false,
-        success: function (data) {
-            console.log(data);
-            $('#welcome_person').append('<h3>Administrator: ' + ['first_name'] + ' ' + ['last_name'] + '</h3>');
         }
     });
 });
