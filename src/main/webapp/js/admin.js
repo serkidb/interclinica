@@ -34,12 +34,11 @@ $(document).ready(function () {
     $.ajax({
         url: "doctors",
         cache: false,
-        data: {id: 2},
         success: function (data) {
             console.log(data);
             data.forEach(function (row) {
                 $('#doctors_registered tbody').append('<tr>');
-                $('#doctors_registered tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '</td>');
+                $('#doctors_registered tbody').append('<td>Doctor ' + row['u_id'] + '<br>' + row['first_name'] + ' ' + row['last_name'] + '</td>');
                 $('#doctors_registered tbody').append('<td>' + row['specialty'] + '</td>');
                 $('#doctors_registered tbody').append('<td><button id="doctors_delete" type="button">Deregister</button></td>');
                 $('#doctors_registered tbody').append('</tr>');
@@ -53,10 +52,9 @@ $(document).ready(function () {
     $.ajax({
         url: "info",
         cache: false,
-        data: {id: 2},
         success: function (data) {
             console.log(data);
-            $('#welcome_person').append('<h3>Administrator: ' + row['first_name'] + ' ' + row['last_name'] + '</h3>');
+            $('#welcome_person').append('<h3>Administrator: ' + ['first_name'] + ' ' + ['last_name'] + '</h3>');
         }
     });
 });
