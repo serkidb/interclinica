@@ -37,8 +37,8 @@ public class appointment extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             String id = session.getAttribute("userId").toString();
-            request.getParameter("type");
-            out.print(Database.getAppointments(id));
+            String type = request.getParameter("type");
+            out.print(Database.getAppointments(id,type));
             out.flush();
             
             
