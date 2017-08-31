@@ -47,3 +47,16 @@ $(document).ready(function () {
         }
     });
 });
+
+// A $( document ).ready() block.
+$(document).ready(function () {
+    $.ajax({
+        url: "info",
+        cache: false,
+        data: {id: 2},
+        success: function (data) {
+            console.log(data);
+            $('#welcome_person').append('<h3>Administrator: ' + row['first_name'] + ' ' + row['last_name'] + '</h3>');
+        }
+    });
+});
