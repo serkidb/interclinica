@@ -16,7 +16,7 @@ $(document).ready(function () {
     $.ajax({
         url: "appointment",
         cache: false,
-        data: {id: 2},
+        data: {type:"patient"},
         success: function (data) {
             console.log(data);
             var length = data.length;

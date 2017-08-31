@@ -60,17 +60,16 @@ $(document).ready(function () {
     });
 
 
-//Delete Doctors
-    $(document).on('click', '.doctor_delete', function () {        
-         $.ajax({
-        url: "deletedoctor",
-        data:{doctor_id:$(this).data("doctor")},
-        cache: false,
-        success: function (data) {
-            location.reload();
-          
-        }
-    });
+    //Delete Doctors
+    $(document).on('click', '.doctor_delete', function () {
+        $.ajax({
+            url: "deletedoctor",
+            data: {doctor_id: $(this).data("doctor")},
+            cache: false,
+            success: function (data) {
+                location.reload();
+            }
+        });
     });
 
 });

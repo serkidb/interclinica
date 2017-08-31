@@ -6,7 +6,7 @@ $(document).ready(function () {
         cache: false,
         success: function (data) {
             console.log(data);
-            $('#welcome_person').append('<h3>Doctor: ' + data[0]['first_name'] + ' ' + data[0]['last_name'] + '</h3><br><h4> Specialty: ' + data[0]['specialty']);
+            $('#welcome_person').append('<h3>Doctor: ' + data[0]['first_name'] + ' ' + data[0]['last_name'] + '</h3><h4> Specialty: ' + data[0]['specialty'] + '</h4>');
         }
     });
 });
@@ -16,7 +16,7 @@ $(document).ready(function () {
     $.ajax({
         url: "appointment",
         cache: false,
-        data: {id: 2},
+        data: {type:"doctor"},
         success: function (data) {
             console.log(data);
             var length = data.length;
