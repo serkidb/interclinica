@@ -6,10 +6,8 @@
 package Servlets;
 
 import Models.Database;
-import Models.Validator;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +18,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Serkid
  */
-public class register extends HttpServlet {
+public class doctors extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,50 +31,11 @@ public class register extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();
-            String specialty = new String();
-            String firstName = request.getParameter("first_name");
-            String lastName = request.getParameter("last_name");
-            String username = request.getParameter("username");
-            String email = request.getParameter("email");
-            String address = request.getParameter("address");
-            String phone_number = request.getParameter("phone_number");
-            String password = request.getParameter("password");
-            specialty = request.getParameter("specialty");
-            
-            
-            if(Validator.checkIfAlreadyUser(username))
-            {
-                out.println("Someone is already using that username");
-                RequestDispatcher rs = request.getRequestDispatcher("index.html");
-                rs.include(request, response);
-                
-            }else if(specialty == null){
-                
-                System.out.println("Register User");
-                
-                Database.registerUser(firstName, lastName, username, email, address, phone_number, password,"patient","");
-  
-                if(session.getAttribute("userId").toString()!=null)
-                {
-                    RequestDispatcher rs = request.getRequestDispatcher("admin.html");
-                    rs.include(request, response);
-                }else
-                {
-                   RequestDispatcher rs = request.getRequestDispatcher("index.html");
-                    rs.include(request, response); 
-                }
-                
-                
-            }else if(!specialty.isEmpty()){
-                System.out.println("Register Doctor");
-                Database.registerUser(firstName, lastName, username, email, address, phone_number, password,"doctor",specialty);
-                RequestDispatcher rs = request.getRequestDispatcher("admin.html");
-                rs.include(request, response);
-            }
-           
+            /* TODO output your page here. You may use following sample code. */
+            out.print(Database.getAllDoctors());
+            out.flush();
         }
     }
 
