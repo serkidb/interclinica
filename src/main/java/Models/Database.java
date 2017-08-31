@@ -83,6 +83,37 @@ public class Database {
 
         return myArray;
     }
+    
+    
+        public static JSONArray getDoctorAppointments(String id) {
+        JSONArray myArray = new JSONArray();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM appointments INNER JOIN users ON appointments.patient_id = users.u_id WHERE appointments.doctor_id = ? ORDER BY appointments.date_time DESC");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                JSONObject myObj = new JSONObject();
+                myObj.put("app_id", rs.getString("app_id"));
+                myObj.put("doctor_id", rs.getString("doctor_id"));
+                myObj.put("date_time", rs.getString("date_time"));
+                myObj.put("app_status", rs.getString("app_status"));
+                myObj.put("first_name", rs.getString("first_name"));
+                myObj.put("last_name", rs.getString("last_name"));
+                myObj.put("specialty", rs.getString("specialty"));
+
+                //myObj.put("status", rs.getString("status"));
+                myArray.put(myObj);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return myArray;
+    }
 
     public static void deleteDoctor(String doctorId) {
 
@@ -112,6 +143,7 @@ public class Database {
                 JSONObject myObj = new JSONObject();
                 myObj.put("first_name", rs.getString("first_name"));
                 myObj.put("last_name", rs.getString("last_name"));
+                myObj.put("specialty", rs.getString("specialty"));
                 myArray.put(myObj);
             }
 
