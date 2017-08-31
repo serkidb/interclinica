@@ -26,7 +26,7 @@ $(document).ready(function () {
                 $('#appointments_table tbody').append('<td> Appointment ' + (length - i) + '<br>' + row['date_time'] + '</td>');
                 $('#appointments_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '</td>');
                 if ((row['app_status'] == 'Active') || (row['app_status'] == 'active')) {
-                    $('#appointments_table tbody').append('<td><button class="appointment_complete" type="button" data-app="' + row['app_id'] + '">Complete</button><br><button class="appointment_cancel" type="button" data-app="' + row['app_id'] + '">Cancel</button></td>');
+                    $('#appointments_table tbody').append('<td><button class="appointment_complete" type="button" data-app="' + row['app_id'] + '">Complete</button><br><br><button class="appointment_cancel" type="button" data-app="' + row['app_id'] + '">Cancel</button></td>');
                 } else if ((row['app_status'] == 'Completed') || (row['app_status'] == 'completed')) {
                     $('#appointments_table tbody').append('<td><p><font color="green">Completed!</font></p></td>');
                 } else if ((row['app_status'] == 'Cancelled') || (row['app_status'] == 'cancelled') || (row['app_status'] == 'Canceled') || (row['app_status'] == 'canceled')) {
