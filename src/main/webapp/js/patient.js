@@ -26,7 +26,7 @@ $(document).ready(function () {
                 $('#appointments_table tbody').append('<td> Appointment ' + (length - i) + '<br>' + row['date_time'] + '</td>');
                 $('#appointments_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
                 if ((row['app_status'] == 'Active') || (row['app_status'] == 'active')) {
-                    $('#appointments_table tbody').append('<td><button id="appointment_cancel" type="button">Cancel</button></td>');
+                    $('#appointments_table tbody').append('<td><button class="appointment_cancel" type="button" data-app="' + row['app_id'] + '">Cancel</button></td>');
                 } else if ((row['app_status'] == 'Completed') || (row['app_status'] == 'completed')) {
                     $('#appointments_table tbody').append('<td><p><font color="green">Completed!</font></p></td>');
                 } else if ((row['app_status'] == 'Cancelled') || (row['app_status'] == 'cancelled') || (row['app_status'] == 'Canceled') || (row['app_status'] == 'canceled')) {
@@ -36,5 +36,17 @@ $(document).ready(function () {
                 i = i + 1;
             });
         }
+    });
+    
+    // Cancel Appointment
+    $(document).on('click', '.appointment_cancel', function () {
+        $.ajax({
+            url: "deletedoctor",
+            data: {doctor_id: $(this).data("doctor")},
+            cache: false,
+            success: function (data) {
+                location.reload();
+            }
+        });
     });
 });
