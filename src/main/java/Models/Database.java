@@ -154,5 +154,24 @@ public class Database {
 
         return myArray;
     }
+    
+    public static void changeState(String status,String id)
+    {
+         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
+            PreparedStatement ps = con.prepareStatement("UPDATE `appointments` SET app_status =? WHERE app_id = ?");
+            ps.setString(1, status);
+            ps.setString(2, id);
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        
+        
+        
+    }
 
 }
