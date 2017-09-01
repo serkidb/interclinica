@@ -41,8 +41,8 @@ $(document).ready(function () {
     // Complete Appointment
     $(document).on('click', '.appointment_complete', function () {
         $.ajax({
-            url: "completeapp",
-            data: {app_id: $(this).data("app")},
+            url: "changestate",
+            data: {app_id: $(this).data("app"), status:"Completed"},
             cache: false,
             success: function (data) {
                 location.reload();
@@ -53,8 +53,8 @@ $(document).ready(function () {
     // Cancel Appointment
     $(document).on('click', '.appointment_cancel', function () {
         $.ajax({
-            url: "cancelapp",
-            data: {app_id: $(this).data("app")},
+            url: "changestate",
+            data: {app_id: $(this).data("app"), status:"Cancelled"},
             cache: false,
             success: function (data) {
                 location.reload();
