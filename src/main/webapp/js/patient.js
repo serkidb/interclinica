@@ -41,8 +41,8 @@ $(document).ready(function () {
     // Cancel Appointment
     $(document).on('click', '.appointment_cancel', function () {
         $.ajax({
-            url: "deletedoctor",
-            data: {doctor_id: $(this).data("doctor")},
+            url: "changestate",
+            data: {app_id: $(this).data("app"), status:"Cancelled"},
             cache: false,
             success: function (data) {
                 location.reload();
