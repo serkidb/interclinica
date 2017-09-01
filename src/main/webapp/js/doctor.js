@@ -41,7 +41,7 @@ $(document).ready(function () {
     // Complete Appointment
     $(document).on('click', '.appointment_complete', function () {
         $.ajax({
-            url: "completeapp",
+            url: "",
             data: {app_id: $(this).data("app")},
             cache: false,
             success: function (data) {
