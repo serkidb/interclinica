@@ -1,7 +1,6 @@
-
 // A $( document ).ready() block.
-// Print welcome message for patient.
 $(document).ready(function () {
+    // Print welcome message for patient.
     $.ajax({
         url: "info",
         cache: false,
@@ -10,9 +9,18 @@ $(document).ready(function () {
             $('#welcome_person').append('<h3>Patient: ' + data[0]['first_name'] + ' ' + data[0]['last_name'] + '</h3>');
         }
     });
-});
-// A $( document ).ready() block.
-$(document).ready(function () {
+
+    $.ajax({
+        url: "doctors",
+        cache: false,
+        success: function (data) {
+            console.log(data);
+            data.forEach(function (row) {
+                $('#doctorSpecialty').append('<option value="' + row['specialty'] + '">' + row['specialty'] + '</option>');
+            });
+        }
+    });
+
     $.ajax({
         url: "appointment",
         cache: false,
@@ -49,23 +57,31 @@ $(document).ready(function () {
             }
         });
     });
-});
-
-$(document).ready(function () {
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0!
-
-    var yyyy = today.getFullYear();
-    if (dd < 10) {
-        dd = '0' + dd
-    }
-    if (mm < 10) {
-        mm = '0' + mm
-    }
-    today = mm + '/' + dd + '/' + yyyy;
-
-    $('#datePicker').attr('value', today);
-
-    alert($('#datePicker').attr('value'));
+    
+    // Get current date.
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+    var today = year + "-" + month + "-" + day;       
+    $("#datePicker").attr("value", today);
+    
+    // Book appointment
+    $.ajax({
+        url: "book",
+        cache: false,
+        data: {doc_specialty: "", date: "", hours: ""},
+        success: function (data) {
+            console.log(data);
+            data.forEach(function (row) {
+                $('#appointments_table tbody').append('<tr>');
+                $('#appointments_table tbody').append('<td>' + row['date_time'] + '</td>');
+                $('#appointments_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
+                $('#appointments_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + row['date_time'] + '">Book This</button></td>');
+                $('#appointments_table tbody').append('</tr>');
+            });
+        }
+    });
 });

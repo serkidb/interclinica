@@ -9,10 +9,7 @@ $(document).ready(function () {
             $('#welcome_person').append('<h3>Doctor: ' + data[0]['first_name'] + ' ' + data[0]['last_name'] + '</h3><h4> Specialty: ' + data[0]['specialty'] + '</h4>');
         }
     });
-});
-
-// A $( document ).ready() block.
-$(document).ready(function () {
+    
     $.ajax({
         url: "appointment",
         cache: false,

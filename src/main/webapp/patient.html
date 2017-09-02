@@ -15,10 +15,6 @@
         <link rel="stylesheet" href="css/patient.css">
         <script src="js/index.js"></script>
         <script src="js/patient.js"></script>
-
-        <script>
-            document.getElementById("datePicker").defaultValue = "2017-09-02";
-        </script>
     </head>
 
     <body>
@@ -61,14 +57,11 @@
                                     <div class="appointments_new" id="register-form" style="display: none;">
                                         <form action="requestb.in" method="get">
                                             <h4>What kind of doctor do you seek?</h4>
-                                            <select>
-                                                <option value="General">General</option>
-                                                <option value="Ladies">Ladies Doctor</option>
-                                                <option value="Psycologist">Psycologist</option>
+                                            <select id="doctorSpecialty">
                                             </select>
                                             <br><br>
                                             <h4>Which date?</h4>
-                                            <input id="datePicker" type="date" name="app_date" value="2017-09-01">
+                                            <input id="datePicker" type="date">
                                             <br><br>
                                             <input type="radio" name="day" value="Morning" checked="checked"> Morning <br>
                                             <input type="radio" name="day" value="Evening"> Evening <br><br>
@@ -80,11 +73,6 @@
                                                 <th>Available Date and Time</th>
                                                 <th>Assigned Doctor</th>
                                                 <th>Book a Time Slot</th>
-                                            </tr>
-                                            <tr>
-                                                <td>28/08/2017<br>10:30 - 12:30</td>
-                                                <td>Brahimaj</td>
-                                                <td><input type="submit" name="appointment_book" id="appointment_book" class="" value="Book This Time Slot"></td>
                                             </tr>
                                         </table>
                                     </div>
