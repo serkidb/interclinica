@@ -16,6 +16,9 @@
         <script src="js/index.js"></script>
         <script src="js/patient.js"></script>
 
+        <script>
+            document.getElementById("datePicker").defaultValue = "2017-09-02";
+        </script>
     </head>
 
     <body>
@@ -56,12 +59,21 @@
                                         </table>
                                     </div>
                                     <div class="appointments_new" id="register-form" style="display: none;">
-                                        <h4>What kind of doctor do you seek?</h4>
-                                        <select>
-                                            <option value="default">General</option>
-                                            <option value="ladies">Ladies Doctor</option>
-                                            <option value="psycologist">Psycologist</option>
-                                        </select>
+                                        <form action="requestb.in" method="get">
+                                            <h4>What kind of doctor do you seek?</h4>
+                                            <select>
+                                                <option value="General">General</option>
+                                                <option value="Ladies">Ladies Doctor</option>
+                                                <option value="Psycologist">Psycologist</option>
+                                            </select>
+                                            <br><br>
+                                            <h4>Which date?</h4>
+                                            <input id="datePicker" type="date" name="app_date" value="2017-09-01">
+                                            <br><br>
+                                            <input type="radio" name="day" value="Morning" checked="checked"> Morning <br>
+                                            <input type="radio" name="day" value="Evening"> Evening <br><br>
+                                            <input type="submit">
+                                        </form>
                                         <br><br>
                                         <table>
                                             <tr>

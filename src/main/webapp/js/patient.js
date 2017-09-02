@@ -16,7 +16,7 @@ $(document).ready(function () {
     $.ajax({
         url: "appointment",
         cache: false,
-        data: {type:"patient"},
+        data: {type: "patient"},
         success: function (data) {
             console.log(data);
             var length = data.length;
@@ -37,16 +37,35 @@ $(document).ready(function () {
             });
         }
     });
-    
+
     // Cancel Appointment
     $(document).on('click', '.appointment_cancel', function () {
         $.ajax({
             url: "changestate",
-            data: {app_id: $(this).data("app"), status:"Cancelled"},
+            data: {app_id: $(this).data("app"), status: "Cancelled"},
             cache: false,
             success: function (data) {
                 location.reload();
             }
         });
     });
+});
+
+$(document).ready(function () {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+    today = mm + '/' + dd + '/' + yyyy;
+
+    $('#datePicker').attr('value', today);
+
+    alert($('#datePicker').attr('value'));
 });
