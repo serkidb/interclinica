@@ -83,30 +83,76 @@ $(document).ready(function () {
                 var timeOfDayLength = 0;
                 var hour = 0;
                 var stringHour = "";
+                var date_time = "";
+                var appLength = 0;
                 data.forEach(function (row) {
+                    appLength = row['appointments'].length;
                     if (($("input[name='day']:checked").val() == "Morning") || ($("input[name='day']:checked").val() == "morning")) {
                         timeOfDayLength = 8;
                         hour = 9;
                         for (i = 0; i < timeOfDayLength; i++) {
                             stringHour = hour + ":00:00";
-                            $('#availability_table tbody').append('<tr>');
-                            $('#availability_table tbody').append('<td>' + $('#datePicker').val() + '<br>' + stringHour + '</td>');
-                            $('#availability_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
-                            $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + $('#datePicker').val() + stringHour + '">Book This</button></td>');
-                            $('#availability_table tbody').append('</tr>');
-                            hour = hour + 1;
+                            date_time = $('#datePicker').val() + " " + stringHour;
+
+                            if (appLength == 0) {
+                                $('#availability_table tbody').append('<tr>');
+                                $('#availability_table tbody').append('<td>' + date_time + '</td>');
+                                $('#availability_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
+                                $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + date_time + '">Book This</button></td>');
+                                $('#availability_table tbody').append('</tr>');
+                                hour = hour + 1;
+                            } else {
+                                var exist = "false";
+                                for (j = 0; j < appLength; j++) {
+                                    if (row['appointments'][j].hour == date_time) {
+                                        exist = "true";
+                                        break;
+                                    }
+                                }
+                                $('#availability_table tbody').append('<tr>');
+                                $('#availability_table tbody').append('<td>' + date_time + '</td>');
+                                $('#availability_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
+                                if (exist == "true") {
+                                    $('#availability_table tbody').append('<td><p><font color="red">Not Available!</font></p></td>');
+                                } else
+                                    $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + date_time + '">Book This</button></td>');
+                                $('#availability_table tbody').append('</tr>');
+                                hour = hour + 1;
+                            }
+
                         }
                     } else if (($("input[name='day']:checked").val() == "Evening") || ($("input[name='day']:checked").val() == "evening")) {
                         timeOfDayLength = 5;
                         hour = 17;
                         for (i = 0; i < timeOfDayLength; i++) {
                             stringHour = hour + ":00:00";
-                            $('#availability_table tbody').append('<tr>');
-                            $('#availability_table tbody').append('<td>' + $('#datePicker').val() + '<br>' + stringHour + '</td>');
-                            $('#availability_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
-                            $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + $('#datePicker').val() + stringHour + '">Book This</button></td>');
-                            $('#availability_table tbody').append('</tr>');
-                            hour = hour + 1;
+                            date_time = $('#datePicker').val() + " " + stringHour;
+
+                            if (appLength == 0) {
+                                $('#availability_table tbody').append('<tr>');
+                                $('#availability_table tbody').append('<td>' + date_time + '</td>');
+                                $('#availability_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
+                                $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + date_time + '">Book This</button></td>');
+                                $('#availability_table tbody').append('</tr>');
+                                hour = hour + 1;
+                            } else {
+                                var exist = "false";
+                                for (j = 0; j < appLength; j++) {
+                                    if (row['appointments'][j].hour == date_time) {
+                                        exist = "true";
+                                        break;
+                                    }
+                                }
+                                $('#availability_table tbody').append('<tr>');
+                                $('#availability_table tbody').append('<td>' + date_time + '</td>');
+                                $('#availability_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
+                                if (exist == "true") {
+                                    $('#availability_table tbody').append('<td><p><font color="red">Not Available!</font></p></td>');
+                                } else
+                                    $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + date_time + '">Book This</button></td>');
+                                $('#availability_table tbody').append('</tr>');
+                                hour = hour + 1;
+                            }
                         }
                     }
                 });

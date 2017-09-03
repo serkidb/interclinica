@@ -211,14 +211,10 @@ public class Database {
                 JSONArray appointments = new JSONArray();
                 while(rs2.next())
                 {
-                    
                     JSONObject appointment = new JSONObject();
                     appointment.put("app_id", rs2.getString("app_id"));
-                    appointment.put("hour", rs2.getString("app_id"));
+                    appointment.put("hour", rs2.getString("date_time"));
                     appointments.put(appointment);
-
-                            
-                    
                 }
                 myObj.put("appointments",appointments);
                 myArray.put(myObj);
