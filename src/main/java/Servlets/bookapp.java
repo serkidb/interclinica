@@ -36,16 +36,14 @@ public class bookapp extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             String userId = session.getAttribute("userId").toString();
-            String doc_id_date_time = request.getParameter("doc_id_date_time");
-            String[] doc_id_date_timeArray = doc_id_date_time.split(",");
-            String doc_id = doc_id_date_timeArray[0];
-            String date_time = doc_id_date_timeArray[1];
+            String doctorId = request.getParameter("doctor_id");
+            String dateTime = request.getParameter("date_time");
 
-            Database.bookApp(userId, doc_id, date_time);
+            Database.bookApp(userId, doctorId, dateTime);
             RequestDispatcher rs = request.getRequestDispatcher("doctor.html");
             rs.include(request, response);
 
-            System.out.println(userId + doc_id + date_time);
+         
         }
     }
 

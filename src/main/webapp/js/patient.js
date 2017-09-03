@@ -98,7 +98,7 @@ $(document).ready(function () {
                                 $('#availability_table tbody').append('<tr>');
                                 $('#availability_table tbody').append('<td>' + date_time + '</td>');
                                 $('#availability_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
-                                $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + "," + date_time + '">Book This</button></td>');
+                                $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-doctor="' + row['u_id'] + '" data-date="' + date_time +'">Book This</button></td>');
                                 $('#availability_table tbody').append('</tr>');
                                 hour = hour + 1;
                             } else {
@@ -115,9 +115,10 @@ $(document).ready(function () {
                                 if (exist == "true") {
                                     $('#availability_table tbody').append('<td><p><font color="red">Not Available!</font></p></td>');
                                 } else
-                                    $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + "," + date_time + '">Book This</button></td>');
+                                    $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-doctor="' + row['u_id'] + '"data-date="' + date_time + '">Book This</button></td>');
                                 $('#availability_table tbody').append('</tr>');
                                 hour = hour + 1;
+                                
                             }
 
                         }
@@ -132,7 +133,7 @@ $(document).ready(function () {
                                 $('#availability_table tbody').append('<tr>');
                                 $('#availability_table tbody').append('<td>' + date_time + '</td>');
                                 $('#availability_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
-                                $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + "," + date_time + '">Book This</button></td>');
+                                $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-doctor="' + row['u_id'] + '"data-date="' + date_time + '">Book This</button></td>');
                                 $('#availability_table tbody').append('</tr>');
                                 hour = hour + 1;
                             } else {
@@ -149,7 +150,7 @@ $(document).ready(function () {
                                 if (exist == "true") {
                                     $('#availability_table tbody').append('<td><p><font color="red">Not Available!</font></p></td>');
                                 } else
-                                    $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + "," + date_time + '">Book This</button></td>');
+                                    $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-doctor="' + row['u_id'] + '"data-date="' + date_time + '">Book This</button></td>');
                                 $('#availability_table tbody').append('</tr>');
                                 hour = hour + 1;
                             }
@@ -162,9 +163,10 @@ $(document).ready(function () {
     
     // Book Appointment.
     $(document).on('click', '.appointment_book', function () {
+        console.log( $(this).data("doctor")+$(this).data("date"));
         $.ajax({
             url: "bookapp",
-            data: {doc_id_date_time: $(this).data("app")},
+            data: {doctor_id: $(this).data("doctor"),date_time:$(this).data("date")},
             cache: false,
             success: function (data) {
                 location.reload();
