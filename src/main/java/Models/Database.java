@@ -184,7 +184,7 @@ public class Database {
                 days = "Mon-Sat";
             } else if (myString.equals("Sun")) {
                 days = "Sunday";
-
+                timeOfDay = "all day";
             } else {
                 days = "Mon-Fri";
             }
