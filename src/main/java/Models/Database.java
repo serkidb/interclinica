@@ -6,6 +6,9 @@
 package Models;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -58,11 +61,10 @@ public class Database {
         JSONArray myArray = new JSONArray();
         try {
             String sql = new String();
-            if(type.equals("doctor")){
+            if (type.equals("doctor")) {
                 sql = "SELECT * FROM appointments INNER JOIN users ON appointments.patient_id = users.u_id WHERE appointments.doctor_id = ? ORDER BY appointments.date_time DESC";
-            
-            }else if(type.equals("patient"))
-            {
+
+            } else if (type.equals("patient")) {
                 sql = "SELECT * FROM appointments INNER JOIN users ON appointments.doctor_id = users.u_id WHERE appointments.patient_id = ? ORDER BY appointments.date_time DESC";
             }
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -91,7 +93,6 @@ public class Database {
 
         return myArray;
     }
-    
 
     public static void deleteDoctor(String doctorId) {
 
@@ -154,10 +155,9 @@ public class Database {
 
         return myArray;
     }
-    
-    public static void changeState(String status,String id)
-    {
-         try {
+
+    public static void changeState(String status, String id) {
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
             PreparedStatement ps = con.prepareStatement("UPDATE `appointments` SET app_status =? WHERE app_id = ?");
@@ -168,10 +168,67 @@ public class Database {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        
-        
-        
+
+    }
+
+    public static JSONArray checkAvailability(String doctorType, String date, String timeOfDay) {
+        JSONArray myArray = new JSONArray();
+        try {
+            //
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date startDate;
+            startDate = df.parse(date);
+            String myString = new SimpleDateFormat("EE", Locale.ENGLISH).format(startDate);
+            String days = new String();
+            if (myString.equals("Sat")) {
+                days = "Mon-Sat";
+            } else if (myString.equals("Sun")) {
+                days = "Sunday";
+
+            } else {
+                days = "Mon-Fri";
+            }
+
+            //
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM users INNER JOIN availability ON users.u_id = availability.doctor_id WHERE users.specialty LIKE ? AND availability.days LIKE ? AND availability.hours LIKE ?");
+            ps.setString(1, doctorType);
+            ps.setString(2, days);
+            ps.setString(3, timeOfDay);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                JSONObject myObj = new JSONObject();
+                myObj.put("u_id", rs.getString("u_id"));
+                myObj.put("first_name", rs.getString("first_name"));
+                myObj.put("last_name", rs.getString("last_name"));
+                myObj.put("specialty", rs.getString("specialty"));
+
+                ps = con.prepareStatement("SELECT * FROM appointments WHERE doctor_id = ? AND DATE(date_time) = ? AND app_status LIKE 'active'");
+                ps.setString(1, rs.getString("u_id"));
+                ps.setString(2,date);
+                ResultSet rs2 = ps.executeQuery();
+                JSONArray appointments = new JSONArray();
+                while(rs2.next())
+                {
+                    
+                    JSONObject appointment = new JSONObject();
+                    appointment.put("app_id", rs2.getString("app_id"));
+                    appointment.put("hour", rs2.getString("app_id"));
+                    appointments.put(appointment);
+
+                            
+                    
+                }
+                myObj.put("appointments",appointments);
+                myArray.put(myObj);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return myArray;
     }
 
 }

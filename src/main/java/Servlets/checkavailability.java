@@ -5,6 +5,7 @@
  */
 package Servlets;
 
+import Models.Database;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
@@ -35,25 +36,15 @@ public class checkavailability extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String date = request.getParameter("date");
+            String doctorType = request.getParameter("doctor_type");
+            String date = request.getParameter("app_date");
+            String day = request.getParameter("day");
 
-            
-            DateFormat df = new SimpleDateFormat("yyyy/MM/day");
-            Date startDate;
-            try {
-                startDate = df.parse(date);
-                String newDateString = df.format(startDate);
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(startDate);
-                String myString = new SimpleDateFormat("EE",Locale.ENGLISH).format(startDate);
-                int day= cal.get(Calendar.DAY_OF_WEEK);
-                System.out.println(myString);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+               out.print(Database.checkAvailability(doctorType, date, day));
+               out.flush();
         }
     }
 
