@@ -75,7 +75,7 @@ $(document).ready(function () {
         $.ajax({
             url: "checkavailability",
             cache: false,
-            data: {doctor_type: $('#datePicker').val(), app_date: $('#doctorSpecialty').val(), time_of_day: $("input[name='']:checked").val()},
+            data: {doctor_type: $('#doctorSpecialty').val(), app_date: $('#datePicker').val(), time_of_day: $("input[name='day']:checked").val()},
             success: function (data) {
                 console.log(data);
 //                data.forEach(function (row) {
