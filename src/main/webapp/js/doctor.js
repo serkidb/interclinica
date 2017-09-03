@@ -66,4 +66,27 @@ $(document).ready(function () {
             }
         });
     });
+    
+    // Retrieve current availability
+    $.ajax({
+        url: "curavailability",
+        cache: false,
+        success: function (data) {
+            console.log(data);
+            if (data[0]['days'] === "Mon-Fri") {
+                if (data[0]['hours'] === "morning") {
+                    $('#curr_availability').append('<h3>From Monday to Friday, 9AM to 5PM</h3>');
+                } else
+                    $('#curr_availability').append('<h3>From Monday to Friday, 5PM to 9PM</h3>');
+            } else if (data[0]['days'] === "Mon-Sat") {
+                if (data[0]['hours'] === "morning") {
+                    $('#curr_availability').append('<h3>From Monday to Saturday, 9AM to 5PM</h3>');
+                } else
+                    $('#curr_availability').append('<h3>From Monday to Saturday, 5PM to 9PM</h3>');
+            } else if (data[0]['days'] === "Sunday") {
+                $('#curr_availability').append('<h3>Every Sunday, 9AM to 9PM</h3>');
+            } else
+                $('#curr_availability').append('<h3>You have not registered as available to patients yet.</h3>');
+        }
+    });
 });

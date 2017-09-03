@@ -56,8 +56,13 @@
                                         </table>
                                     </div>
                                     <div class="appointments_dates" id="register-form" style="display: none;">
-                                        <h4>This month I am available:</h4>
-                                        <form id="availability-form" action="setavailability" method="get" role="form">
+                                        <h4>This month you are available to patients:</h4>
+                                        <div id="curr_availability">
+                                            
+                                        </div>
+                                        <br><br>
+                                        <h4>Change when you will be available:</h4>
+                                        <form id="availability-form" action="setavailability" method="post" role="form">
                                             <select id="days" name="days">
                                                 <option value="Mon-Fri">Working Days (Monday to Friday)</option>
                                                 <option value="Mon-Sat">6 Days per Week (Monday to Saturday)</option>
@@ -72,7 +77,7 @@
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-sm-6 col-sm-offset-3">
-                                                        <input type="submit" name="availability-submit" id="availability-submit" tabindex="10" class="form-control btn btn-register" value="Submit">
+                                                        <input type="submit" name="availability-submit" id="availability-submit" tabindex="10" class="form-control btn btn-register" value="Change Availability">
                                                     </div>
                                                 </div>
                                             </div>

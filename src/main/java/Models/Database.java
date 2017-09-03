@@ -206,17 +206,16 @@ public class Database {
 
                 ps = con.prepareStatement("SELECT * FROM appointments WHERE doctor_id = ? AND DATE(date_time) = ? AND app_status LIKE 'active'");
                 ps.setString(1, rs.getString("u_id"));
-                ps.setString(2,date);
+                ps.setString(2, date);
                 ResultSet rs2 = ps.executeQuery();
                 JSONArray appointments = new JSONArray();
-                while(rs2.next())
-                {
+                while (rs2.next()) {
                     JSONObject appointment = new JSONObject();
                     appointment.put("app_id", rs2.getString("app_id"));
                     appointment.put("hour", rs2.getString("date_time"));
                     appointments.put(appointment);
                 }
-                myObj.put("appointments",appointments);
+                myObj.put("appointments", appointments);
                 myArray.put(myObj);
             }
 
@@ -225,8 +224,17 @@ public class Database {
         }
         return myArray;
     }
-    
+
     public static void sAvailability(String doctorId, String days, String hours) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
+            PreparedStatement ps = con.prepareStatement("DELETE FROM availability WHERE doctor_id=?");
+            ps.setString(1, doctorId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
@@ -237,6 +245,27 @@ public class Database {
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-        }        
+        }
+    }
+    
+    public static JSONArray currentAvailability(String id) {
+        JSONArray myArray = new JSONArray();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM availability WHERE doctor_id = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                JSONObject myObj = new JSONObject();
+                myObj.put("doctor_id", rs.getString("doctor_id"));
+                myObj.put("days", rs.getString("days"));
+                myObj.put("hours", rs.getString("hours"));
+                myArray.put(myObj);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return myArray;
     }
 }
