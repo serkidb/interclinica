@@ -41,7 +41,7 @@ public class checkavailability extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String doctorType = request.getParameter("doctor_type");
             String date = request.getParameter("app_date");
-            String day = request.getParameter("day");
+            String day = request.getParameter("time_of_day");
 
                out.print(Database.checkAvailability(doctorType, date, day));
                out.flush();
