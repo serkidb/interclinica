@@ -79,11 +79,11 @@ $(document).ready(function () {
             success: function (data) {
                 console.log(data);
 //                data.forEach(function (row) {
-//                    $('#appointments_table tbody').append('<tr>');
-//                    $('#appointments_table tbody').append('<td>' + row['date_time'] + '</td>');
-//                    $('#appointments_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
-//                    $('#appointments_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + row['date_time'] + '">Book This</button></td>');
-//                    $('#appointments_table tbody').append('</tr>');
+//                    $('#availability_table tbody').append('<tr>');
+//                    $('#availability_table tbody').append('<td>' + row['date_time'] + '</td>');
+//                    $('#availability_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
+//                    $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + row['date_time'] + '">Book This</button></td>');
+//                    $('#availability_table tbody').append('</tr>');
 //                });
             }
         });
