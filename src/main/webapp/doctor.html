@@ -57,13 +57,25 @@
                                     </div>
                                     <div class="appointments_dates" id="register-form" style="display: none;">
                                         <h4>This month I am available:</h4>
-                                        <form action="">
-                                            <input type="radio" name="days" value="Morning Friday"> Morning, Working Days (Monday to Friday, 9AM to 5PM) <br>
-                                            <input type="radio" name="days" value="Evening Friday"> Evening, Working Days (Monday to Friday, 5PM to 9PM) <br>
-                                            <input type="radio" name="days" value="Morning Saturday"> Morning, 6 Days per Week (Monday to Saturday, 9AM to 5PM)<br>
-                                            <input type="radio" name="days" value="Evening Saturday"> Evening, 6 Days per Week (Monday to Saturday, 5PM to 9PM)<br>
-                                            <input type="radio" name="days" value="allday Sunday"> Sundays, 9AM to 9PM <br>
-                                            <button type="submit" formaction="avail">Submit</button>
+                                        <form id="availability-form" action="setavailability" method="get" role="form">
+                                            <select id="days" name="days">
+                                                <option value="Mon-Fri">Working Days (Monday to Friday)</option>
+                                                <option value="Mon-Sat">6 Days per Week (Monday to Saturday)</option>
+                                                <option value="Sunday">Sundays (All Day)</option> 
+                                            </select>
+
+                                            <select id="hours" name="hours">
+                                                <option value="morning">Morning Hours (9AM to 5PM)</option>
+                                                <option value="evening">Evening Hours (5PM to 9PM)</option>
+                                            </select>
+                                            <br><br>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-sm-offset-3">
+                                                        <input type="submit" name="availability-submit" id="availability-submit" tabindex="10" class="form-control btn btn-register" value="Submit">
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>

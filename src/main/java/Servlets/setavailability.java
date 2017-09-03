@@ -8,22 +8,18 @@ package Servlets;
 import Models.Database;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Serkid
+ * @author Gentzos-Surface
  */
-public class checkavailability extends HttpServlet {
+public class setavailability extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,15 +32,27 @@ public class checkavailability extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json");
+        response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String doctorType = request.getParameter("doctor_type");
-            String date = request.getParameter("app_date");
-            String day = request.getParameter("time_of_day");
 
-            out.print(Database.checkAvailability(doctorType, date, day));
-            out.flush();
+            HttpSession session = request.getSession();
+
+            String uId = session.getAttribute("userId").toString();
+            String days = request.getParameter("days");
+            String hours = "";
+
+            if ((days.equals("Mon-Fri")) || (days.equals("Mon-Sat"))) {
+                hours = request.getParameter("hours");
+
+            } else {
+                hours = "all day";
+            }
+
+            Database.sAvailability(uId, days, hours);
+            RequestDispatcher rs = request.getRequestDispatcher("doctor.html");
+            rs.include(request, response);
+            
+            System.out.println(uId + days + hours);
         }
     }
 

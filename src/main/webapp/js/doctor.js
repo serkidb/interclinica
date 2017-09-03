@@ -1,6 +1,14 @@
 // A $( document ).ready() block.
 // Print welcome message for doctor.
 $(document).ready(function () {
+    $("#days").change(function () {
+        if ($(this).val() == "Sunday") {
+            $("#hours").hide();
+        } else {
+            $("#hours").show();
+        }
+    });
+
     $.ajax({
         url: "info",
         cache: false,
@@ -9,11 +17,11 @@ $(document).ready(function () {
             $('#welcome_person').append('<h3>Doctor: ' + data[0]['first_name'] + ' ' + data[0]['last_name'] + '</h3><h4> Specialty: ' + data[0]['specialty'] + '</h4>');
         }
     });
-    
+
     $.ajax({
         url: "appointment",
         cache: false,
-        data: {type:"doctor"},
+        data: {type: "doctor"},
         success: function (data) {
             console.log(data);
             var length = data.length;
@@ -34,24 +42,24 @@ $(document).ready(function () {
             });
         }
     });
-    
+
     // Complete Appointment
     $(document).on('click', '.appointment_complete', function () {
         $.ajax({
             url: "changestate",
-            data: {app_id: $(this).data("app"), status:"Completed"},
+            data: {app_id: $(this).data("app"), status: "Completed"},
             cache: false,
             success: function (data) {
                 location.reload();
             }
         });
     });
-    
+
     // Cancel Appointment
     $(document).on('click', '.appointment_cancel', function () {
         $.ajax({
             url: "changestate",
-            data: {app_id: $(this).data("app"), status:"Cancelled"},
+            data: {app_id: $(this).data("app"), status: "Cancelled"},
             cache: false,
             success: function (data) {
                 location.reload();

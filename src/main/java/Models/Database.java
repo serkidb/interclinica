@@ -223,8 +223,20 @@ public class Database {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return myArray;
     }
-
+    
+    public static void sAvailability(String doctorId, String days, String hours) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO availability(doctor_id, days, hours) VALUES (?,?,?)");
+            ps.setString(1, doctorId);
+            ps.setString(2, days);
+            ps.setString(3, hours);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+    }
 }

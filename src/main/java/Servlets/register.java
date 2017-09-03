@@ -45,38 +45,33 @@ public class register extends HttpServlet {
             String phone_number = request.getParameter("phone_number");
             String password = request.getParameter("password");
             specialty = request.getParameter("specialty");
-            
-            
-            if(Validator.checkIfAlreadyUser(username))
-            {
+
+            if (Validator.checkIfAlreadyUser(username)) {
                 out.println("Someone is already using that username");
                 RequestDispatcher rs = request.getRequestDispatcher("index.html");
                 rs.include(request, response);
-                
-            }else if(specialty == null){
-                
+
+            } else if (specialty == null) {
+
                 System.out.println("Register User");
-                
-                Database.registerUser(firstName, lastName, username, email, address, phone_number, password,"patient","");
-  
-                if(session.getAttribute("userId").toString()!=null)
-                {
+
+                Database.registerUser(firstName, lastName, username, email, address, phone_number, password, "patient", "");
+
+                if (session.getAttribute("userId").toString() != null) {
                     RequestDispatcher rs = request.getRequestDispatcher("admin.html");
                     rs.include(request, response);
-                }else
-                {
-                   RequestDispatcher rs = request.getRequestDispatcher("index.html");
-                    rs.include(request, response); 
+                } else {
+                    RequestDispatcher rs = request.getRequestDispatcher("index.html");
+                    rs.include(request, response);
                 }
-                
-                
-            }else if(!specialty.isEmpty()){
+
+            } else if (!specialty.isEmpty()) {
                 System.out.println("Register Doctor");
-                Database.registerUser(firstName, lastName, username, email, address, phone_number, password,"doctor",specialty);
+                Database.registerUser(firstName, lastName, username, email, address, phone_number, password, "doctor", specialty);
                 RequestDispatcher rs = request.getRequestDispatcher("admin.html");
                 rs.include(request, response);
             }
-           
+
         }
     }
 
