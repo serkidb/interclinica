@@ -78,13 +78,38 @@ $(document).ready(function () {
             data: {doctor_type: $('#doctorSpecialty').val(), app_date: $('#datePicker').val(), time_of_day: $("input[name='day']:checked").val()},
             success: function (data) {
                 console.log(data);
-//                data.forEach(function (row) {
-//                    $('#availability_table tbody').append('<tr>');
-//                    $('#availability_table tbody').append('<td>' + row['date_time'] + '</td>');
-//                    $('#availability_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
-//                    $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + row['date_time'] + '">Book This</button></td>');
-//                    $('#availability_table tbody').append('</tr>');
-//                });
+                $('#availability_table tbody').remove();
+                $('#availability_table').append("<tbody></tbody>");
+                var timeOfDayLength = 0;
+                var hour = 0;
+                var stringHour = "";
+                data.forEach(function (row) {
+                    if (($("input[name='day']:checked").val() == "Morning") || ($("input[name='day']:checked").val() == "morning")) {
+                        timeOfDayLength = 8;
+                        hour = 9;
+                        for (i = 0; i < timeOfDayLength; i++) {
+                            stringHour = hour + ":00:00";
+                            $('#availability_table tbody').append('<tr>');
+                            $('#availability_table tbody').append('<td>' + $('#datePicker').val() + '<br>' + stringHour + '</td>');
+                            $('#availability_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
+                            $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + $('#datePicker').val() + stringHour + '">Book This</button></td>');
+                            $('#availability_table tbody').append('</tr>');
+                            hour = hour + 1;
+                        }
+                    } else if (($("input[name='day']:checked").val() == "Evening") || ($("input[name='day']:checked").val() == "evening")) {
+                        timeOfDayLength = 5;
+                        hour = 17;
+                        for (i = 0; i < timeOfDayLength; i++) {
+                            stringHour = hour + ":00:00";
+                            $('#availability_table tbody').append('<tr>');
+                            $('#availability_table tbody').append('<td>' + $('#datePicker').val() + '<br>' + stringHour + '</td>');
+                            $('#availability_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
+                            $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + $('#datePicker').val() + stringHour + '">Book This</button></td>');
+                            $('#availability_table tbody').append('</tr>');
+                            hour = hour + 1;
+                        }
+                    }
+                });
             }
         });
     });
