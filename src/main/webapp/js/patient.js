@@ -57,14 +57,35 @@ $(document).ready(function () {
             }
         });
     });
-    
+
     // Get current date.
     var date = new Date();
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
-    if (month < 10) month = "0" + month;
-    if (day < 10) day = "0" + day;
-    var today = year + "-" + month + "-" + day;       
+    if (month < 10)
+        month = "0" + month;
+    if (day < 10)
+        day = "0" + day;
+    var today = year + "-" + month + "-" + day;
     $("#datePicker").attr("value", today);
+
+    // Book appointment
+    $(document).on('click', '.check_doctors', function () {
+        $.ajax({
+            url: "checkavailability",
+            cache: false,
+            data: {doctor_type: $('#datePicker').val(), app_date: $('#doctorSpecialty').val(), time_of_day: $("input[name='']:checked").val()},
+            success: function (data) {
+                console.log(data);
+//                data.forEach(function (row) {
+//                    $('#appointments_table tbody').append('<tr>');
+//                    $('#appointments_table tbody').append('<td>' + row['date_time'] + '</td>');
+//                    $('#appointments_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
+//                    $('#appointments_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + row['date_time'] + '">Book This</button></td>');
+//                    $('#appointments_table tbody').append('</tr>');
+//                });
+            }
+        });
+    });
 });
