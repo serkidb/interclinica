@@ -268,4 +268,20 @@ public class Database {
         }
         return myArray;
     }
+    
+    public static void bookApp(String userId, String docId, String date_time) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO appointments(doctor_id, patient_id, date_time, app_status) VALUES (?,?,?,?)");
+            String appStatus = "active";
+            ps.setString(1, docId);
+            ps.setString(2, userId);
+            ps.setString(3, date_time);
+            ps.setString(4, appStatus);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
