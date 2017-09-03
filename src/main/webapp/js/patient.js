@@ -68,20 +68,20 @@ $(document).ready(function () {
     var today = year + "-" + month + "-" + day;       
     $("#datePicker").attr("value", today);
     
-    // Book appointment
-    $.ajax({
-        url: "book",
-        cache: false,
-        data: {doc_specialty: "", date: "", hours: ""},
-        success: function (data) {
-            console.log(data);
-            data.forEach(function (row) {
-                $('#appointments_table tbody').append('<tr>');
-                $('#appointments_table tbody').append('<td>' + row['date_time'] + '</td>');
-                $('#appointments_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
-                $('#appointments_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + row['date_time'] + '">Book This</button></td>');
-                $('#appointments_table tbody').append('</tr>');
-            });
-        }
-    });
+//    // Book appointment
+//    $.ajax({
+//        url: "book",
+//        cache: false,
+//        data: {doc_specialty: "", date: "", hours: ""},
+//        success: function (data) {
+//            console.log(data);
+//            data.forEach(function (row) {
+//                $('#appointments_table tbody').append('<tr>');
+//                $('#appointments_table tbody').append('<td>' + row['date_time'] + '</td>');
+//                $('#appointments_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
+//                $('#appointments_table tbody').append('<td><button class="appointment_book" type="button" data-app="' + row['doc_id'] + row['date_time'] + '">Book This</button></td>');
+//                $('#appointments_table tbody').append('</tr>');
+//            });
+//        }
+//    });
 });
