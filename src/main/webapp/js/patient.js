@@ -91,7 +91,14 @@ $(document).ready(function () {
                         timeOfDayLength = 8;
                         hour = 9;
                         for (i = 0; i < timeOfDayLength; i++) {
-                            stringHour = hour + ":00:00";
+                            if(hour === 9)
+                            {
+                                stringHour = "09:00:00";
+                            }else
+                            {
+                                stringHour = hour + ":00:00";
+                            }
+                            
                             date_time = $('#datePicker').val() + " " + stringHour;
 
                             if (appLength == 0) {
