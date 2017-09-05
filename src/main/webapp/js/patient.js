@@ -54,8 +54,17 @@ $(document).ready(function () {
             cache: false,
             success: function (data) {
                 console.log(data);
-                alert("The paragraph was clicked.");
-//                location.reload();
+                if(data == 'notupdated')
+                {
+                alert("You can't cancel at this point");
+                location.reload();
+                
+                }else
+                {
+                location.reload();
+                }
+                
+         
             }
         });
     });
