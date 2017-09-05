@@ -53,9 +53,7 @@ $(document).ready(function () {
             data: {app_id: $(this).data("app"), status: "Cancelled"},
             cache: false,
             success: function (data) {
-                console.log(data);
-                alert("The paragraph was clicked.");
-//                location.reload();
+                location.reload();
             }
         });
     });
@@ -93,21 +91,21 @@ $(document).ready(function () {
                         timeOfDayLength = 8;
                         hour = 9;
                         for (i = 0; i < timeOfDayLength; i++) {
-                            if(hour === 9)
+                            if (hour === 9)
                             {
                                 stringHour = "09:00:00";
-                            }else
+                            } else
                             {
                                 stringHour = hour + ":00:00";
                             }
-                            
+
                             date_time = $('#datePicker').val() + " " + stringHour;
 
                             if (appLength == 0) {
                                 $('#availability_table tbody').append('<tr>');
                                 $('#availability_table tbody').append('<td>' + date_time + '</td>');
                                 $('#availability_table tbody').append('<td>' + row['first_name'] + ' ' + row['last_name'] + '<br>' + row['specialty'] + '</td>');
-                                $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-doctor="' + row['u_id'] + '" data-date="' + date_time +'">Book This</button></td>');
+                                $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-doctor="' + row['u_id'] + '" data-date="' + date_time + '">Book This</button></td>');
                                 $('#availability_table tbody').append('</tr>');
                                 hour = hour + 1;
                             } else {
@@ -127,7 +125,7 @@ $(document).ready(function () {
                                     $('#availability_table tbody').append('<td><button class="appointment_book" type="button" data-doctor="' + row['u_id'] + '"data-date="' + date_time + '">Book This</button></td>');
                                 $('#availability_table tbody').append('</tr>');
                                 hour = hour + 1;
-                                
+
                             }
 
                         }
@@ -169,13 +167,13 @@ $(document).ready(function () {
             }
         });
     });
-    
+
     // Book Appointment.
     $(document).on('click', '.appointment_book', function () {
-        console.log( $(this).data("doctor")+$(this).data("date"));
+        console.log($(this).data("doctor") + $(this).data("date"));
         $.ajax({
             url: "bookapp",
-            data: {doctor_id: $(this).data("doctor"),date_time:$(this).data("date")},
+            data: {doctor_id: $(this).data("doctor"), date_time: $(this).data("date")},
             cache: false,
             success: function (data) {
                 location.reload();
