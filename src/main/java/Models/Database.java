@@ -180,6 +180,8 @@ public class Database {
             startDate = df.parse(date);
             String myString = new SimpleDateFormat("EE", Locale.ENGLISH).format(startDate);
             String days = new String();
+            String sql = new String();
+             sql="SELECT * FROM users INNER JOIN availability ON users.u_id = availability.doctor_id WHERE users.specialty LIKE ? AND availability.days LIKE ? AND availability.hours LIKE ?";
             if (myString.equals("Sat")) {
                 days = "Mon-Sat";
             } else if (myString.equals("Sun")) {
@@ -187,12 +189,14 @@ public class Database {
                 timeOfDay = "all day";
             } else {
                 days = "Mon-Fri";
+                sql="SELECT * FROM users INNER JOIN availability ON users.u_id = availability.doctor_id WHERE users.specialty LIKE ? AND availability.days LIKE ? OR availability.days LIKE 'Mon-Sat' AND availability.hours LIKE ?";
             }
-
+            System.out.println(days);
+            System.out.println(sql);
             //
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM users INNER JOIN availability ON users.u_id = availability.doctor_id WHERE users.specialty LIKE ? AND availability.days LIKE ? AND availability.hours LIKE ?");
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, doctorType);
             ps.setString(2, days);
             ps.setString(3, timeOfDay);
