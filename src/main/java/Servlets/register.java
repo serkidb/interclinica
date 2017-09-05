@@ -57,7 +57,7 @@ public class register extends HttpServlet {
 
                 Database.registerUser(firstName, lastName, username, email, address, phone_number, password, "patient", "");
 
-                if (session.getAttribute("userId").toString() != null) {
+                if (session.getAttribute("userId") != null) {
                     RequestDispatcher rs = request.getRequestDispatcher("admin.html");
                     rs.include(request, response);
                 } else {

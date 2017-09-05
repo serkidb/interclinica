@@ -9,6 +9,7 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.concurrent.ThreadLocalRandom;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -35,13 +36,17 @@ public class Database {
     }
 
     public static void registerUser(String firstName, String lastName, String username, String email, String address, String phoneNumber, String password, String type, String specialty) {
-
+        Generator gen = new Generator(12, ThreadLocalRandom.current());
+        String randomString = gen.nextString();
+        String newPassword = Hash.md5(password+randomString);
+        System.out.println(newPassword);
+        
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
-            PreparedStatement ps = con.prepareStatement("INSERT INTO users(username,pwd,email,first_name,last_name,address,phone_number,type,specialty,created_at) VALUES (?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO users(username,pwd,email,first_name,last_name,address,phone_number,type,specialty,salt,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)");
             ps.setString(1, username);
-            ps.setString(2, password);
+            ps.setString(2, newPassword);
             ps.setString(3, email);
             ps.setString(4, firstName);
             ps.setString(5, lastName);
@@ -49,12 +54,13 @@ public class Database {
             ps.setString(7, phoneNumber);
             ps.setString(8, type);
             ps.setString(9, specialty);
+            ps.setString(10, randomString);
             ps.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        
     }
 
     public static JSONArray getAppointments(String id, String type) {
