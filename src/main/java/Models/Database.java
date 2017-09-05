@@ -105,9 +105,9 @@ public class Database {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
-            PreparedStatement ps = con.prepareStatement("DELETE FROM users WHERE u_id =?");
-            ps.setString(1, doctorId);
-            ps.executeUpdate();
+            PreparedStatement ps2 = con.prepareStatement("DELETE FROM users WHERE u_id =?");
+            ps2.setString(1, doctorId);
+            ps2.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();

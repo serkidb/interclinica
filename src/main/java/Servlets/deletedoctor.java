@@ -8,6 +8,7 @@ package Servlets;
 import Models.Database;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +30,8 @@ public class deletedoctor extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
            String id = request.getParameter("doctor_id");
            Database.deleteDoctor(id);
-           
+            RequestDispatcher rs = request.getRequestDispatcher("/admin.html");
+                    rs.include(request, response);
         }
     }
 
