@@ -53,7 +53,9 @@ $(document).ready(function () {
             data: {app_id: $(this).data("app"), status: "Cancelled"},
             cache: false,
             success: function (data) {
-                location.reload();
+                console.log(data);
+                alert("The paragraph was clicked.");
+//                location.reload();
             }
         });
     });
