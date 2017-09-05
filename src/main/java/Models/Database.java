@@ -101,7 +101,6 @@ public class Database {
     }
 
     public static void deleteDoctor(String doctorId) {
-
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
@@ -208,7 +207,7 @@ public class Database {
                 timeOfDay = "all day";
             } else {
                 days = "Mon-Fri";
-                sql = "SELECT * FROM users INNER JOIN availability ON users.u_id = availability.doctor_id WHERE users.specialty LIKE ? AND availability.days LIKE ? OR availability.days LIKE 'Mon-Sat' AND availability.hours LIKE ?";
+                sql = "SELECT * FROM users INNER JOIN availability ON users.u_id = availability.doctor_id WHERE users.specialty LIKE ? AND (availability.days LIKE ? OR availability.days LIKE 'Mon-Sat') AND availability.hours LIKE ?";
             }
             System.out.println(days);
             System.out.println(sql);
