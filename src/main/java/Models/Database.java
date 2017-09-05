@@ -38,9 +38,9 @@ public class Database {
     public static void registerUser(String firstName, String lastName, String username, String email, String address, String phoneNumber, String password, String type, String specialty) {
         Generator gen = new Generator(12, ThreadLocalRandom.current());
         String randomString = gen.nextString();
-        String newPassword = Hash.md5(password+randomString);
+        String newPassword = Hash.md5(password + randomString);
         System.out.println(newPassword);
-        
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
@@ -60,7 +60,7 @@ public class Database {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
     public static JSONArray getAppointments(String id, String type) {
@@ -167,37 +167,27 @@ public class Database {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
-            
-            if(Validator.checkIfDays(id) && status.equals("Cancelled"))
-            {
-                System.out.println("Can cancel");
-                message= "Cancel done";
-                
-            PreparedStatement ps = con.prepareStatement("UPDATE `appointments` SET app_status =? WHERE app_id = ?");
-            ps.setString(1, status);
-            ps.setString(2, id);
-            ps.executeUpdate();
-                
-            }else if(status.equals("Completed")){
-                
-            PreparedStatement ps = con.prepareStatement("UPDATE `appointments` SET app_status =? WHERE app_id = ?");
-            ps.setString(1, status);
-            ps.setString(2, id);
-            ps.executeUpdate();
-            message = "Completed done";
-            
-            }else{
-                message = "cannot update";
-                        
-            }
-            
-            
-            
 
+            if (Validator.checkIfDays(id) && status.equals("Cancelled")) {
+                System.out.println("Can cancel");
+                message = "cancelled";
+                PreparedStatement ps = con.prepareStatement("UPDATE `appointments` SET app_status =? WHERE app_id = ?");
+                ps.setString(1, status);
+                ps.setString(2, id);
+                ps.executeUpdate();
+            } else if (status.equals("Completed")) {
+                PreparedStatement ps = con.prepareStatement("UPDATE `appointments` SET app_status =? WHERE app_id = ?");
+                ps.setString(1, status);
+                ps.setString(2, id);
+                ps.executeUpdate();
+                message = "completed";
+            } else {
+                message = "notupdated";
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-            return message;
+        return message;
     }
 
     public static JSONArray checkAvailability(String doctorType, String date, String timeOfDay) {
@@ -210,7 +200,7 @@ public class Database {
             String myString = new SimpleDateFormat("EE", Locale.ENGLISH).format(startDate);
             String days = new String();
             String sql = new String();
-             sql="SELECT * FROM users INNER JOIN availability ON users.u_id = availability.doctor_id WHERE users.specialty LIKE ? AND availability.days LIKE ? AND availability.hours LIKE ?";
+            sql = "SELECT * FROM users INNER JOIN availability ON users.u_id = availability.doctor_id WHERE users.specialty LIKE ? AND availability.days LIKE ? AND availability.hours LIKE ?";
             if (myString.equals("Sat")) {
                 days = "Mon-Sat";
             } else if (myString.equals("Sun")) {
@@ -218,7 +208,7 @@ public class Database {
                 timeOfDay = "all day";
             } else {
                 days = "Mon-Fri";
-                sql="SELECT * FROM users INNER JOIN availability ON users.u_id = availability.doctor_id WHERE users.specialty LIKE ? AND availability.days LIKE ? OR availability.days LIKE 'Mon-Sat' AND availability.hours LIKE ?";
+                sql = "SELECT * FROM users INNER JOIN availability ON users.u_id = availability.doctor_id WHERE users.specialty LIKE ? AND availability.days LIKE ? OR availability.days LIKE 'Mon-Sat' AND availability.hours LIKE ?";
             }
             System.out.println(days);
             System.out.println(sql);
@@ -280,7 +270,7 @@ public class Database {
             e.printStackTrace();
         }
     }
-    
+
     public static JSONArray currentAvailability(String id) {
         JSONArray myArray = new JSONArray();
         try {
@@ -301,7 +291,7 @@ public class Database {
         }
         return myArray;
     }
-    
+
     public static void bookApp(String userId, String docId, String date_time) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
