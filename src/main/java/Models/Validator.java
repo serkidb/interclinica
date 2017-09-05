@@ -29,18 +29,20 @@ public class Validator {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
             PreparedStatement ps = con.prepareStatement("select * from users");
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                while (rs.next()) {
+            while(rs.next())
+            {
                     String salt = rs.getString("salt");
                     String pwd = rs.getString("pwd");
                     String databasePassword = Hash.md5(pass + salt);
                     String databaseUsername = rs.getString("username");
-
+                    System.out.println(databasePassword);
+                    System.out.println(pwd);
                     if (pwd.equals(databasePassword) && username.equals(databaseUsername)) {
                         session.setAttribute("userId", rs.getString("u_id"));
                         st = true;
+                        break;
                     }
-                }
+                
 
             }
 
