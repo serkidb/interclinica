@@ -35,8 +35,6 @@ public class Validator {
                     String pwd = rs.getString("pwd");
                     String databasePassword = Hash.md5(pass + salt);
                     String databaseUsername = rs.getString("username");
-                    System.out.println(databasePassword);
-                    System.out.println(pwd);
                     if (pwd.equals(databasePassword) && username.equals(databaseUsername)) {
                         session.setAttribute("userId", rs.getString("u_id"));
                         st = true;

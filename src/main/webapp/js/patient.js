@@ -53,7 +53,14 @@ $(document).ready(function () {
             data: {app_id: $(this).data("app"), status: "Cancelled"},
             cache: false,
             success: function (data) {
-                location.reload();
+                console.log(data);
+                if (data == 'notupdated')
+                {
+                    alert("You can't cancel at this point");
+                } else
+                {
+                    location.reload();
+                }
             }
         });
     });
