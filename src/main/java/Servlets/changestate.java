@@ -35,7 +35,8 @@ public class changestate extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String status = request.getParameter("status");
             String id = request.getParameter("app_id");
-            Database.changeState(status, id);
+            out.print(Database.changeState(status, id));
+            out.flush();
             
         }
     }

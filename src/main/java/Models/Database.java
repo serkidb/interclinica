@@ -162,19 +162,42 @@ public class Database {
         return myArray;
     }
 
-    public static void changeState(String status, String id) {
+    public static String changeState(String status, String id) {
+        String message = new String();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
+            
+            if(Validator.checkIfDays(id) && status.equals("Cancelled"))
+            {
+                System.out.println("Can cancel");
+                message= "Cancel done";
+                
             PreparedStatement ps = con.prepareStatement("UPDATE `appointments` SET app_status =? WHERE app_id = ?");
             ps.setString(1, status);
             ps.setString(2, id);
             ps.executeUpdate();
+                
+            }else if(status.equals("Completed")){
+                
+            PreparedStatement ps = con.prepareStatement("UPDATE `appointments` SET app_status =? WHERE app_id = ?");
+            ps.setString(1, status);
+            ps.setString(2, id);
+            ps.executeUpdate();
+            message = "Completed done";
+            
+            }else{
+                message = "cannot update";
+                        
+            }
+            
+            
+            
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+            return message;
     }
 
     public static JSONArray checkAvailability(String doctorType, String date, String timeOfDay) {

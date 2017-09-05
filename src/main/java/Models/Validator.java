@@ -6,8 +6,14 @@
 package Models;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import org.joda.time.*;
+import java.util.Calendar;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.servlet.http.HttpSession;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  *
@@ -60,6 +66,44 @@ public class Validator {
             e.printStackTrace();
         }
         return st;
+    }
+    
+    
+    public static boolean checkIfDays(String id)
+    {
+       boolean isOk = false;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/interclinica", "root", "");
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM appointments WHERE app_id = ?");
+            ps.setString(1, id);
+           ResultSet rs =  ps.executeQuery();
+            if(rs.next())
+            {
+                
+                String date = rs.getString("date_time").split("\\s+")[0];
+                
+                DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MMM-dd");
+                
+                LocalDate appDate =new LocalDate(date);
+                LocalDate today = LocalDate.now();
+                
+                int days = Days.daysBetween(today, appDate).getDays();
+               
+                System.out.println(days);
+                if(days >=3)
+                {
+                    isOk = true;
+                }else
+                {
+                    isOk = false;
+                }
+                
+            }
+         } catch (Exception e) {
+            e.printStackTrace();
+        }
+       return isOk;
     }
 
 }
