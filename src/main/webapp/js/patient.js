@@ -15,8 +15,22 @@ $(document).ready(function () {
         cache: false,
         success: function (data) {
             console.log(data);
+            var names = [];
+            var j = 0;
+            var uniqueNames = [];
+
             data.forEach(function (row) {
-                $('#doctorSpecialty').append('<option value="' + row['specialty'] + '">' + row['specialty'] + '</option>');
+                names[j] = row['specialty'];
+                j++;
+            });
+
+            $.each(names, function (i, el) {
+                if ($.inArray(el, uniqueNames) === -1)
+                    uniqueNames.push(el);
+            });
+
+            $.each(uniqueNames, function (i, el) {
+                $('#doctorSpecialty').append('<option value="' + uniqueNames[i] + '">' + uniqueNames[i] + '</option>');
             });
         }
     });
